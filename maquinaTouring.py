@@ -1,15 +1,16 @@
 
-from os import truncate
 import re
 
 
 def comprobacionVariable(variable):
     comillaSimple = "'"
     comillaDoble = '"'
-    erVariable="([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
-    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&"+comillaDoble+"()*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
+    erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
+    erVariable="|([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
+    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&"+comillaDoble+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
     erComillasDobles = "(["+comillaDoble+"]([a-zA-Z0-9!#$%&()"+comillaSimple+"'*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble+"])"
-    validator = re.compile(erVariable+erComillasDobles+erComillasSimples)
+    validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples+erNumeros)
+    # validator = re.compile(erNumeros)
     match =validator.match(variable)
     try:
         valida = match.group()==variable
@@ -39,20 +40,26 @@ def touringGears(cinta:list):
     comprobacionOperador = False
     operadores = ["+","/","-","%","^^","*"]
     if(not comprobacionVariable(cinta[0])):
+        print("error en una variable")
         print(cinta[0])
-        return " error en una variable"
+        # return " error en una variable"
+        return False
     for elemento in cinta:
         if(comprobacionOperador):
             validacionOperador = operadores.count(elemento)
             if(validacionOperador==0 and elemento.count("-")==0):
+                print("un simbolo esta mal colocado")
                 print(elemento)
-                return "un simbolo esta mal colocado o no existe"
+                # return "un simbolo esta mal colocado o no existe"
+                return False
             comprobacionOperador = False
         else:
             validacionVariable = comprobacionVariable(elemento)
             if(not validacionVariable):
+                print(" una variable no es valida")
                 print(elemento)
-                return "una variable no es valida"
+                # return "una variable no es valida"
+                return False
             comprobacionOperador = True
             
     if(comprobacionOperador==False):
@@ -71,6 +78,8 @@ def touringGearsString(cinta:list):
     for index in range(len(cinta)):
         if(cinta[index].count("'")>0 or cinta[index].count('"')>0):
             listaStrings.append(index)
+    if(len(cinta)==1):
+        return True
     for index in listaStrings:
         if(index-1<0):
             if(cinta[index+1]!="+"):
@@ -90,13 +99,15 @@ def tratamientoStrings(cadena:str):
     return cadenaSplit
 
 def touringMachine(cadena):
+
     divicionAsignacion = cadena.split("=")
+
     print(divicionAsignacion)
     cadena = divicionAsignacion[1]
     cadenaAsignacion = divicionAsignacion[0]
     if(comprobacionAsignacion(cadenaAsignacion)==False or cadena==""):
-        return "erro de sintaxis en la declaracion de variable"
-    
+        # return "erro de sintaxis en la declaracion de variable"
+        return False
     cadenaSplit = tratamientoStrings(cadena)
     print(cadenaSplit)
     cintaAuxiliar = []
@@ -111,17 +122,17 @@ def touringMachine(cadena):
     if(parentesisAbierto == parentesisCerrado):
         print("paso la prueba de los parentesis")
         resultado = touringGears(cinta)
+        print("gears: ",resultado)
         resultadoStrings = touringGearsString(cinta)
-        if(resultadoStrings):
+        print("strings", resultadoStrings)
+        if(resultadoStrings and resultado):
             print(resultado)
         else:
-            print("error al cancatenar strings")
+            return False
     else:
-        print("no paso la prueba de los parentesis")
-        return "Error en las operaciones de variables"
+        return False
     return True
 
-print(touringMachine(' value__ = "conchesumadre"+(55/2) * 5**2 + "tu jefa"'))
 
 
 
