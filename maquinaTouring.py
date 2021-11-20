@@ -63,7 +63,7 @@ def touringGears(cinta:list):
             comprobacionOperador = True
             
     if(comprobacionOperador==False):
-        return "error no se puede terminar con un operador"
+        return False
     return "aceptado"
 
 def llenarCinta(cintaAux:list):
