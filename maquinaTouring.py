@@ -48,7 +48,7 @@ def touringGears(cinta:list):
     
 
 def touringMachine():
-    cadena  = "-3 - 1 + 'hola como estas perro desgraciado' + ''hola + (1/5*(1))"
+    cadena  = "- 3 - 1"
     cadenaTratada = cadena.replace("/"," / ").replace("**", " ** ").replace("+"," + ").replace("*"," * ").replace("  "," ")
     cadenaSplit = cadenaTratada.split(" ")
     cinta = []
@@ -64,14 +64,14 @@ def touringMachine():
 
     print(comillas%2)
         
-    # if(parentesisAbierto == parentesisCerrado):
-    #     print("paso la prueba de los parentesis")
-    #     resultado = touringGears(cinta)
-    #     print(resultado)
-    # else:
-    #     print("no paso la prueba de los parentesis")
+    if(parentesisAbierto == parentesisCerrado):
+        print("paso la prueba de los parentesis")
+        resultado = touringGears(cinta)
+        print(resultado)
+    else:
+        print("no paso la prueba de los parentesis")
         
-    #     return "Error en las operaciones de variables"
+        return "Error en las operaciones de variables"
     
 
 
