@@ -1,12 +1,20 @@
-let i = 0
-while(numero < 10){
+const arr = [3, 5, 7];
+arr.foo = 'hola';
 
-    if(i % 2){
-        console.log('Numero PAR')
-    }
-    else{
-        console.log('Numero IMPAR')
-    }
-    i++
-    console.log(i)
+for (let i in arr) {
+   console.log(i); // logs "0", "1", "2", "foo"
 }
+
+for (let i of arr) {
+   console.log(i); // logs 3, 5, 7
+}
+
+for (let i in obj) {
+    result += obj_name + '.' + i + ' = ' + obj[i] + '<br>';
+  }
+
+  for (let i = 0; i < selectObject.options.length; i++) {
+    if (selectObject.options[i].selected) {
+      numberSelected++;
+    }
+  }
