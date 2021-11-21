@@ -7,8 +7,8 @@ def comprobacionVariable(variable):
     comillaDoble = '"'
     erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
     erVariable="|([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
-    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&"+comillaDoble+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
-    erComillasDobles = "(["+comillaDoble+"]([a-zA-Z0-9!#$%&()"+comillaSimple+"'*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble+"])"
+    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
+    erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble +"])"
     validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples+erNumeros)
     # validator = re.compile(erNumeros)
     match =validator.match(variable)
@@ -37,6 +37,7 @@ def parentesisCount(variable:str):
     return nuevaVariable, numeroParentesisAbierto, numeroParentesisCerrado
 
 def touringGears(cinta:list):
+    
     comprobacionOperador = False
     operadores = ["+","/","-","%","^^","*"]
     if(not comprobacionVariable(cinta[0])):
@@ -63,7 +64,8 @@ def touringGears(cinta:list):
             comprobacionOperador = True
             
     if(comprobacionOperador==False):
-        return "error no se puede terminar con un operador"
+        # return "error no se puede terminar con un operador"
+        return False
     return "aceptado"
 
 def llenarCinta(cintaAux:list):
@@ -93,14 +95,25 @@ def touringGearsString(cinta:list):
     return True
 
 def tratamientoStrings(cadena:str):
+    print(cadena)
     cadenaTratada = cadena.replace("%"," % ").replace("/","  /  ").replace("**", "  ^^   ").replace("+","  +  ").replace("*","  *  ").replace("-","  - ").replace("  ","|")
     cadenaTratada = cadenaTratada.replace(" ","").replace("|"," ").replace("  "," ")
     cadenaSplit = cadenaTratada.split(" ")
     return cadenaSplit
 
-def touringMachine(cadena):
-
+def touringMachine(cadena:str):
+    operadores = ["+","/","-","%","^^","*"]
+    banderaOperadores = False
+    for operador in operadores:
+        if(cadena.count(operador)>0):
+            banderaOperadores = True
+    
+    if(not banderaOperadores):
+        print("no countiene operacioens")
+        return False
+        
     divicionAsignacion = cadena.split("=")
+    
 
     print(divicionAsignacion)
     cadena = divicionAsignacion[1]
@@ -118,7 +131,9 @@ def touringMachine(cadena):
         cintaAuxiliar.append(nuevaVariable.replace(" ",""))
         parentesisAbierto = parentesisAbierto + countParentesisAbireto
         parentesisCerrado = parentesisCerrado + countParentesisCerrado
+        
     cinta = llenarCinta(cintaAuxiliar)
+    
     if(parentesisAbierto == parentesisCerrado):
         print("paso la prueba de los parentesis")
         resultado = touringGears(cinta)
@@ -132,6 +147,7 @@ def touringMachine(cadena):
     else:
         return False
     return True
+
 
 
 

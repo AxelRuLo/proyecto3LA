@@ -1,5 +1,5 @@
 import tkinter as tk
-import maquinaTouring as mt
+import operaciones as mt
 window = tk.Tk()
 window.title("sintaxis")
 window.geometry("500x500")
