@@ -1,16 +1,17 @@
 
-import re
-
+import re 
+from unicodedata import normalize 
 
 def comprobacionVariable(variable):
+    trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
+    variable =  normalize('NFKC', normalize('NFKD', variable).translate(trans_tab))
     comillaSimple = "'"
     comillaDoble = '"'
     erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
     erVariable="|([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
     erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
-    erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble +"])"
-    validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples+erNumeros)
-    # validator = re.compile(erNumeros)
+    erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble+"])"
+    validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples+"|(1)*")
     match =validator.match(variable)
     try:
         valida = match.group()==variable
@@ -102,6 +103,9 @@ def tratamientoStrings(cadena:str):
     return cadenaSplit
 
 def touringMachine(cadena:str):
+    tamañoCadena = len(cadena)
+    if(cadena[tamañoCadena-1]==";"):
+        cadena = cadena[0:tamañoCadena-1]
     operadores = ["+","/","-","%","^^","*"]
     banderaOperadores = False
     for operador in operadores:
@@ -147,11 +151,4 @@ def touringMachine(cadena:str):
     else:
         return False
     return True
-
-
-
-
-
-
-
 
