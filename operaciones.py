@@ -9,8 +9,8 @@ def comprobacionVariable(variable):
     comillaDoble = '"'
     erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
     erVariable="|([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
-    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
-    erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble+"])"
+    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!#$%&() "+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
+    erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!#$%&() "+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble+"])"
     validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples+"|(1)*")
     match =validator.match(variable)
     try:
@@ -152,3 +152,4 @@ def touringMachine(cadena:str):
         return False
     return True
 
+print(touringMachine("var= 2 + 2"))

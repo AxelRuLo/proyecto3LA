@@ -1,15 +1,12 @@
 import re
-from unicodedata import normalize
 # [a-zA-Z,]*|
 def comprobacionImport(variable):
-    trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
-    variable =  normalize('NFKC', normalize('NFKD', variable).translate(trans_tab))
     print(variable)
     erVariableSimple = "(import[ ]([a-zA-Z]*)[ ]from[ ](['][a-zA-Z-/.]*[']))"
     erVariableSimpleAs = " |(import[ ]([*]([ ]as[ ][a-zA-Z]*))[ ]from[ ](['][a-zA-Z-/.]*[']))"
-    erVariableLlaves = "|(import[ ][{]([a-zA-Z]+[,]{0,1}|[a-zA-Z]+[ ]as[ ][a-zA-Z]+[,]{0,1})*[}][ ]from[ ](['][a-zA-Z-/.]*[']))"
-
-    validator = re.compile(erVariableSimple+erVariableSimpleAs+erVariableLlaves)
+    erVariableLlaves = "|(import[ ][{]([ ]*[a-zA-Z0-9]+[,]{0,1}[ ]*|[ ]*[a-zA-Z0-9]+[ ]as[ ][a-zA-Z]+[0-9]*[a-zA-Z][,]{0,1}[ ])*[}][ ]from[ ](['][0-9a-zA-Z-/.]*[']))"
+    erVariableRequire = "|(import[ ][a-zA-Z]+[ ]*[=][ ]*(require)[(][']([a-zA-Z]+)['][)])"
+    validator = re.compile(erVariableSimple+erVariableSimpleAs+erVariableLlaves+erVariableRequire)
     match =validator.match(variable)
     try:
         valida = match.group()==variable
@@ -32,5 +29,5 @@ def checarImports(cadena:str):
         return False
     return True
 
-# checarImports("import re")
-print(checarImports("import * as dis from 'module-name';"))
+# checarImports("import re"
+# print(checarImports("import { function1 as newFunctionName,  function2 as anotherNewFunctionName } from './modules/module.js';"))

@@ -59,6 +59,5 @@ def checarAsignacionCorchetes(cadena:str):
                return False
     return True
 
-print(checarAsignacionCorchetes("let variable = [555,'holaaa','#$%/'];"))
-
+print(checarAsignacionCorchetes("let variable = [['  string','C','A','D','R','A','C','T'],['P','P','P','P','P','P','P','P'],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],['p','p','p','p','p','p','p','p'],['t','c','a','d','r','a','c','t']];"))
 
