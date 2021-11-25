@@ -1,6 +1,10 @@
+from unicodedata import normalize
+import AutomataEstructura as automata
+from string import punctuation
+
 global contents
-path = "./doc.txt"
-file = open(path, "r")
+path = "./doc.js"
+file = open(path, "r",encoding='utf-8')
 contents = file.readlines()
 lineas = len(contents)
 file.close()
@@ -51,6 +55,8 @@ def convertString(value):
 def subStringConcatenacion():
     
     subStringEvaluar = []
+    trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
+    
     for valor in llaves:
         
         aux = contents[valor[0]:valor[1]+1]
@@ -60,13 +66,21 @@ def subStringConcatenacion():
         new_string = new_string.rstrip('\n') #<-- eliminate line breaks
         
         new_string = new_string.replace('(', '').replace(')','').replace('{','').replace('}','').replace(' ', '').replace('\n', '')
-        # print(substr)
+        
 
+            
         concat_string = contents[valor[0]] + new_string + contents[valor[1]]
-        concat_string = concat_string.replace('\n', '').replace(" ","").replace('\t', '').replace('"', "'")
+        concat_string = concat_string.replace('\n', '').replace(" ","").replace('\t', '').replace('"', "'").replace("\\n","").replace("\\t","").replace("\\","")
         concat_string = concat_string.rstrip().lstrip()
-        print(concat_string)
+        concat_string =  normalize('NFKC', normalize('NFKD', concat_string).translate(trans_tab))
+        # print(concat_string)
         subStringEvaluar.append(concat_string)
+    
+    for val in subStringEvaluar:
+        print("_________________")
+        print(val)
+        automata.comprobacion(val)
+        print("_________________")
         
 recorrerLlaves()
 subStringConcatenacion()
