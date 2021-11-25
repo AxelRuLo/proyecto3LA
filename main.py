@@ -36,9 +36,8 @@ def abrirTxt():
     filetypes=(("Text Files", ".js"),)
     )
     f = open(documento, "r",encoding="utf-8")
-    data = f.read()
-    trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
-    data =  normalize('NFKC', normalize('NFKD', data).translate(trans_tab))
+    data = f.readlines()
+    print(data)
 
 def comprobar():
     if(data == 0):

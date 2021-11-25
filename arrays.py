@@ -27,38 +27,41 @@ def corchetesCount(variable:str):
     return numeroCorchetesAbierto, numeroCorchetesCerrado
 
 def checarArray(cadena:str):
-    cadena = cadena.strip()
-    print("entro a array")
-    tamañoCadena = len(cadena)
-    if(cadena[tamañoCadena-1]==";"):
-        cadena = cadena[0:tamañoCadena-1]
-    cadena2 = cadena.replace("'","@@").replace('"',"'").replace("@@",'"')
-    print(cadena2)
-    if(cadena.count("=")!=1):
-        print("demasiados = no es una asignacion")
-        return False
-    cadenaSplit = cadena.split("=")[1].split(",")
-    corchetesAbierto = 0
-    corchetesCerrado = 0
-    
-    for elemento in cadenaSplit:
-        countCorchetesAbireto,countCorchetesCerrado=corchetesCount(elemento)
-        corchetesAbierto = corchetesAbierto + countCorchetesAbireto
-        corchetesCerrado = corchetesCerrado + countCorchetesCerrado
-        if(elemento.count("][")>0 or elemento.count("}{")>0):
-            print("array mal asignado")
+    try:
+        cadena = cadena.strip()
+        print("entro a array")
+        tamañoCadena = len(cadena)
+        if(cadena[tamañoCadena-1]==";"):
+            cadena = cadena[0:tamañoCadena-1]
+        cadena2 = cadena.replace("'","@@").replace('"',"'").replace("@@",'"')
+        print(cadena2)
+        if(cadena.count("=")!=1):
+            print("demasiados = no es una asignacion")
             return False
-        
-    if(corchetesAbierto!=corchetesCerrado or (corchetesCerrado==0 and corchetesAbierto==0)):
-        print("no coinciden los corchetes")
-        return False
-    cadenaAnalizar = cadena.split("=")[1]
-    cadenaAnalizar = cadenaAnalizar.replace("[","").replace("]","").replace("{","").replace("}","").replace(" ","")
-    cadenaAnalizrSplit = cadenaAnalizar.split(",")
-    for elemento in cadenaAnalizrSplit:
-       if(comprobacionVariableCorchete(elemento)==False):
-           if(not operaciones.touringMachine("var ="+elemento)):
-               return False
-    return True
+        cadenaSplit = cadena.split("=")[1].split(",")
+        corchetesAbierto = 0
+        corchetesCerrado = 0
 
+        for elemento in cadenaSplit:
+            countCorchetesAbireto,countCorchetesCerrado=corchetesCount(elemento)
+            corchetesAbierto = corchetesAbierto + countCorchetesAbireto
+            corchetesCerrado = corchetesCerrado + countCorchetesCerrado
+            if(elemento.count("][")>0 or elemento.count("}{")>0):
+                print("array mal asignado")
+                return False
+
+        if(corchetesAbierto!=corchetesCerrado or (corchetesCerrado==0 and corchetesAbierto==0)):
+            print("no coinciden los corchetes")
+            return False
+        cadenaAnalizar = cadena.split("=")[1]
+        cadenaAnalizar = cadenaAnalizar.replace("[","").replace("]","").replace("{","").replace("}","").replace(" ","")
+        cadenaAnalizrSplit = cadenaAnalizar.split(",")
+        for elemento in cadenaAnalizrSplit:
+           if(comprobacionVariableCorchete(elemento)==False):
+               if(not operaciones.touringMachine("var ="+elemento)):
+                   return False
+        return True
+    except:
+        return False
+        
 
