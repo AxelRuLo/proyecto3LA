@@ -16,7 +16,6 @@ def recorrerLlaves():
     countInicio = 0
     countFinal = 0
 
-    
     for i in range(lineas):
         if(contents[i].__contains__("{")):
             countInicio = countInicio + 1
@@ -41,7 +40,7 @@ def recorrerLlaves():
             llaves.append(llave)
             codigo[llave[0]]= codigo[llave[0]].replace("{","")
             codigo[llave[1]]= codigo[llave[1]].replace("}","")
-        print(llaves)
+        # print(llaves)
     else:
         print("error de sintaxis ")
 
@@ -82,6 +81,58 @@ def subStringConcatenacion():
         resp = automata.comprobacion(subStringEvaluar[val])
         llaves[val].append(resp)    
     print(llaves)
-        
+    
+def limpieza():
+    limpiar = llaves.copy()
+    codigo = contents.copy()
+
+    for i in range (len(limpiar)):
+        if(limpiar[i][2] != False):
+            tipo_dato = limpiar[i][2][1]
+            if(tipo_dato == "object"):
+                for j in range(limpiar[i][0],limpiar[i][1]+1):
+                    codigo[j]=""
+                
+            elif(tipo_dato == "switch"):
+                for j in range(limpiar[i][0],limpiar[i][1]+1):
+                    if(j == limpiar[i][0]):
+                        codigo[j]=""
+                    if(j == limpiar[i][1]):
+                        codigo[j]=""
+                    if(codigo[j].__contains__("case")):
+                        codigo[j]=""
+                    if(codigo[j].__contains__("default")):
+                        codigo[j]=""
+                    if(codigo[j].__contains__("break")):
+                        codigo[j]=""
+
+            elif(tipo_dato == "class"):
+                for j in range(limpiar[i][0],limpiar[i][1]+1):
+                    if(j == limpiar[i][0]):
+                        codigo[j]=""
+                    if(j == limpiar[i][1]):
+                        codigo[j]=""
+                    if(codigo[j].__contains__("{")):
+                        codigo[j]=""
+                    if(codigo[j].__contains__("}")):
+                        codigo[j]=""
+
+            else:
+                for j in range(limpiar[i][0],limpiar[i][1]+1):
+                    if(j == limpiar[i][0]):
+                        codigo[j]=""
+                    if(j == limpiar[i][1]):
+                        codigo[j]=""
+                        
+    trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
+    for j in range(len(codigo)):
+        codigo[j]=codigo[j].replace('\n', '').replace(" ","").replace('\t', '').replace('"', "'").replace("\\n","").replace("\\t","").replace("\\","")
+        codigo[j] = codigo[j].rstrip().lstrip()
+        codigo[j] =  normalize('NFKC', normalize('NFKD', codigo[j]).translate(trans_tab))
+    while '' in codigo:
+        codigo.remove('')
+    for i in codigo:
+        print(i)
 recorrerLlaves()
 subStringConcatenacion()
+limpieza()
