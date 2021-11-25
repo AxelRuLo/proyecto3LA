@@ -1,18 +1,11 @@
 from unicodedata import normalize
 import AutomataEstructura as automata
-from string import punctuation
-
-global contents
-path = "./doc.js"
-file = open(path, "r",encoding='utf-8')
-contents = file.readlines()
-lineas = len(contents)
-file.close()
-
 
 llaves = []
+subStringEvaluar = []
 
 def recorrerLlaves():
+    global llaves
     countInicio = 0
     countFinal = 0
 
@@ -40,9 +33,9 @@ def recorrerLlaves():
             llaves.append(llave)
             codigo[llave[0]]= codigo[llave[0]].replace("{","")
             codigo[llave[1]]= codigo[llave[1]].replace("}","")
-        # print(llaves)
+        return True
     else:
-        print("error de sintaxis ")
+        return False
 
 def convertString(value):
     str = ''
@@ -50,10 +43,8 @@ def convertString(value):
         str += x 
     return str
 
-#  while(i < 10){ifi%2console.log'Numero PAR'elseconsole.log'Numero IMPAR'i++console.log(i)}
 def subStringConcatenacion():
-    
-    subStringEvaluar = []
+    global subStringConcatenacion
     trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
     
     for valor in llaves:
@@ -76,11 +67,8 @@ def subStringConcatenacion():
         subStringEvaluar.append(concat_string)
     
     for val in range(len(subStringEvaluar)):
-        # print("_________________")
-        # print(subStringEvaluar[val])
         resp = automata.comprobacion(subStringEvaluar[val])
-        llaves[val].append(resp)    
-    print(llaves)
+        llaves[val].append(resp)   
     
 def limpieza():
     limpiar = llaves.copy()
@@ -126,13 +114,39 @@ def limpieza():
                         
     trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
     for j in range(len(codigo)):
-        codigo[j]=codigo[j].replace('\n', '').replace(" ","").replace('\t', '').replace('"', "'").replace("\\n","").replace("\\t","").replace("\\","")
+        # codigo[j]=codigo[j].replace('\n', '').replace(" ","").replace('\t', '').replace('"', "'").replace("\\n","").replace("\\t","").replace("\\","")
         codigo[j] = codigo[j].rstrip().lstrip()
         codigo[j] =  normalize('NFKC', normalize('NFKD', codigo[j]).translate(trans_tab))
     while '' in codigo:
         codigo.remove('')
-    for i in codigo:
-        print(i)
-recorrerLlaves()
-subStringConcatenacion()
-limpieza()
+    return codigo
+
+def catchError():
+    list_errores =[]
+    for valor in llaves:
+        if(valor[2] == False):
+            list_errores.append(valor)
+    return list_errores
+            
+def initanAlysis(text_codigo):
+    global contents
+    contents = text_codigo
+    
+    global lineas
+    lineas = len(contents)
+    resp_llave=recorrerLlaves()
+    if(resp_llave):
+        
+    # respuesta de llave puede traer verdadero o falso
+    # Falso cuando hay error en llaves 
+    # verdadero cuadno puede pasar a realizar la busqueda de resultados 
+        subStringConcatenacion()
+        list_errores=catchError()
+        codigo = limpieza()
+        if(len(list_errores)>0):
+            return codigo,list_errores
+        else:
+            return codigo
+    return resp_llave
+
+print(initanAlysis())
