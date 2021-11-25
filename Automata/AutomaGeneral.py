@@ -76,11 +76,12 @@ def subStringConcatenacion():
         # print(concat_string)
         subStringEvaluar.append(concat_string)
     
-    for val in subStringEvaluar:
-        print("_________________")
-        print(val)
-        automata.comprobacion(val)
-        print("_________________")
+    for val in range(len(subStringEvaluar)):
+        # print("_________________")
+        # print(subStringEvaluar[val])
+        resp = automata.comprobacion(subStringEvaluar[val])
+        llaves[val].append(resp)    
+    print(llaves)
         
 recorrerLlaves()
 subStringConcatenacion()
