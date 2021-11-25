@@ -26,7 +26,9 @@ def corchetesCount(variable:str):
     numeroCorchetesCerrado = variable.count("]")
     return numeroCorchetesAbierto, numeroCorchetesCerrado
 
-def checarAsignacionCorchetes(cadena:str):
+def checarArray(cadena:str):
+    cadena = cadena.strip()
+    print("entro a array")
     tamañoCadena = len(cadena)
     if(cadena[tamañoCadena-1]==";"):
         cadena = cadena[0:tamañoCadena-1]
@@ -59,5 +61,4 @@ def checarAsignacionCorchetes(cadena:str):
                return False
     return True
 
-print(checarAsignacionCorchetes("let variable = [['  string','C','A','D','R','A','C','T'],['P','P','P','P','P','P','P','P'],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],[' ',' ',' ',' ',' ',' ',' ',' '],['p','p','p','p','p','p','p','p'],['t','c','a','d','r','a','c','t']];"))
 

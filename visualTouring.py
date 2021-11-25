@@ -20,7 +20,7 @@ def comprobar():
         resultado.set("invalida")
 
 # labels
-tk.Label(window,text="escribe la variable/asignacion",font=('Calibri', 14),background="#D3C3C3").place(x=160,y=50)
+tk.Label(window,text="Elije un documento js para analizar",font=('Calibri', 14),background="#D3C3C3").place(x=160,y=50)
 tk.Label(window,text="variable1 = 10",font=('Calibri', 14),background="#D3C3C3").place(x=200,y=100)
 tk.Label(window,text="la entrada debe estar formateada",font=('Calibri', 14),background="#D3C3C3").place(x=140,y=150)
 tk.Label(window,textvariable=resultado,font=('Calibri', 14),background="#D3C3C3").place(x=200,y=390)

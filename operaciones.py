@@ -2,6 +2,18 @@
 import re 
 from unicodedata import normalize 
 
+def comprobacionAsignacionesP1(variable):
+    variable = variable.replace(" ","").replace("  ","")
+    print(variable)
+    erVariable="(let|var|const){0,1}[a-zA-Z]+[0-9]*[a-zA-Z_]*([,][a-zA-Z]+[0-9]*[a-zA-Z_]*)*"
+    validator = re.compile(erVariable)
+    match =validator.match(variable)
+    try:
+        valida = match.group()==variable
+    except (TypeError, AttributeError):
+        valida = False
+    return  valida
+
 def comprobacionVariable(variable):
     trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
     variable =  normalize('NFKC', normalize('NFKD', variable).translate(trans_tab))
@@ -38,7 +50,7 @@ def parentesisCount(variable:str):
     return nuevaVariable, numeroParentesisAbierto, numeroParentesisCerrado
 
 def touringGears(cinta:list):
-    
+    print(cinta)
     comprobacionOperador = False
     operadores = ["+","/","-","%","^^","*"]
     if(not comprobacionVariable(cinta[0])):
@@ -103,6 +115,11 @@ def tratamientoStrings(cadena:str):
     return cadenaSplit
 
 def touringMachine(cadena:str):
+    cadena = cadena.strip()
+    cadenaSplit = cadena.split(" = ")
+    if(not comprobacionAsignacionesP1(cadenaSplit[0]) or len(cadena)<1 or cadena.count("=")==0 or cadena.count("=")>1 or cadena.count("==")>0):
+        return False
+    
     tamañoCadena = len(cadena)
     if(cadena[tamañoCadena-1]==";"):
         cadena = cadena[0:tamañoCadena-1]
@@ -152,4 +169,3 @@ def touringMachine(cadena:str):
         return False
     return True
 
-print(touringMachine("var= 2 + 2"))

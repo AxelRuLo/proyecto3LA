@@ -4,7 +4,7 @@ import re
 def comprobacionConsole(variable):
     variable = variable.replace(" ","").replace("  ","")
     comillaDoble = '"'
-    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+(),-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[a-zA-Z0-9*+(),-."+comillaDoble+"/;<=>?@[\]^_`{|}~]*(['])))[,]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,]{0,1}|([a-zA-Z]+[0-9_a-zA-Z])([(][)]){0,1}[,]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
+    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+%(),-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[a-zA-Z0-9*+()%,-."+comillaDoble+"/:;<=>?@[\]^_`{|}~]*(['])))[,]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,]{0,1}|([a-zA-Z]+[0-9_a-zA-Z])([(][)]){0,1}[,]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
     erConsole = "(console.assert())|"
     erConsole = erConsole+"(console.count("+erVariableContenido+"))|"
     erConsole = erConsole+"(console.debug("+erVariableContenido+"))|"
@@ -30,15 +30,11 @@ def comprobacionConsole(variable):
     return  valida
 
 def checarConsoles(cadena:str):
-    checarOperadores = cadena.replace('"',"'")
     tamañoCadena = len(cadena)
-    print(checarOperadores)
-    contador = 0
-    posicion = 0
     if(cadena[tamañoCadena-1]==";"):
         cadena = cadena[0:tamañoCadena-1]
+    resultado = comprobacionConsole(cadena)
+    return resultado
 
-        
-    print(contador)
 
-print(comprobacionConsole('console.log()'))
+print(checarConsoles("                        console.log('{ str: Algn texto, id: 5  }',var);"))
