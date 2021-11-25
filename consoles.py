@@ -1,6 +1,24 @@
 import re
 
 
+def comprobacionAsignacionesEspeciales(variable):
+    print(variable)
+    comillaSimple = "'"
+    comillaDoble = '"'
+    erNumeros = "|([-]{0,1}[0-9]*[.,][0-9]*)"
+    erVariable="([-]{0,1}[a-zA-Z]([a-zA-Z0-9_])*)|[0-9]*"
+    erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!\s#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
+    erComillasDobles  = "|([" +comillaDoble +"]([a-zA-Z0-9!\s#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble +"])"
+    erEspecial = "([a-zA-Z]([a-zA-Z0-9_.])*[(]("+erVariable+erNumeros+erComillasSimples+erComillasDobles+")[)])|([a-zA-Z][a-zA-Z_0-9]*([-]{2,2}|[+]{2,2}))|([a-zA-Z][a-zA-Z0-9_]*(([+][=])|([-][=]))(([-]{0,1}[a-zA-Z][a-zA-Z0-9_]*)|([-]{0,1}[0-9]+[.,]{0,1}[0-9]*)))"                                                                 
+    print(erEspecial)
+    validator = re.compile(erEspecial)
+    match =validator.match(variable)
+    try:
+        valida = match.group()==variable
+    except (TypeError, AttributeError):
+        valida = False
+    return  valida
+
 def comprobacionConsole(variable):
     variable = variable.replace(" ","").replace("  ","")
     comillaDoble = '"'
@@ -19,6 +37,7 @@ def comprobacionConsole(variable):
     erConsole = erConsole+"(console.table("+erVariableContenido+"))|"
     erConsole = erConsole+"(console.time("+erVariableContenido+"))|"
     erConsole = erConsole+"(console.warn("+erVariableContenido+"))|"
+    erConsole = erConsole+"(document.write("+erVariableContenido+"))|"
     erConsole = erConsole+"(alert("+erVariableContenido+"))"
 
     validator = re.compile(erConsole)
@@ -34,7 +53,8 @@ def checarConsoles(cadena:str):
     if(cadena[tamañoCadena-1]==";"):
         cadena = cadena[0:tamañoCadena-1]
     resultado = comprobacionConsole(cadena)
-    return resultado
-
-
-print(checarConsoles("                        console.log('{ str: Algn texto, id: 5  }',var);"))
+    resultado2 = comprobacionAsignacionesEspeciales(cadena)
+    print(resultado,resultado2)
+    if(resultado==True or resultado2 == True):
+        return True
+    return False

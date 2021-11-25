@@ -7,3 +7,5 @@ import { export1 as unó , export2 as dos } from "module-name";
 while (condition) {
     
 }
+str = 3
+console.log(3str)

@@ -8,7 +8,7 @@ def comprobacionAsignaciones(variable):
     comillaSimple = "'"
     comillaDoble = '"'
     erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
-    erVariable="|([-]{0,1}[a-zA-Z0-9]([a-zA-Z0-9_])*)|"
+    erVariable="|([-]{0,1}[a-zA-Z]([a-zA-Z0-9_])*)|"
     erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!\s#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
     erComillasDobles  = "([" +comillaDoble +"]([a-zA-Z0-9!\s#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble +"])"
     validator = re.compile(erNumeros+erVariable+erComillasDobles+erComillasSimples)
@@ -18,6 +18,8 @@ def comprobacionAsignaciones(variable):
     except (TypeError, AttributeError):
         valida = False
     return  valida
+
+
 
 def comprobacionAsignacionesP1(variable):
     variable = variable.replace(" ","").replace("  ","")
@@ -49,6 +51,6 @@ def comprobarAsignaciones(cadena:str):
 
 
         
-print(comprobarAsignaciones("const getFac = 'ESP8266';"))
+print(comprobarAsignaciones("miFunction(n)"))
 
     
