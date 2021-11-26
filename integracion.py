@@ -24,9 +24,9 @@ def analizarCodigo(codigo):
         variableRetorno = "tienes error en las lineas"
         for i in estado:
             if(contador==0):
-                variableRetorno = variableRetorno+f' {i[0]} a la {i[1]}'
+                variableRetorno = variableRetorno+f' {i[0]+1} a la {i[1]+1}'
             else:
-                variableRetorno = variableRetorno+f' ,{i[0]} a la {i[1]}'
+                variableRetorno = variableRetorno+f' ,{i[0]+1} a la {i[1]+1}'
             contador= contador+1
         print(variableRetorno)
         return variableRetorno

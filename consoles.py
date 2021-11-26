@@ -3,6 +3,9 @@ import re
 
 def comprobacionAsignacionesEspeciales(variable):
     variable = variable.replace(" ","")
+    while '`' in variable:
+        variable = variable.replace("`","'")
+        
     print(f'asi llega la variable{variable}')
     comillaSimple = "'"
     comillaDoble = '"'
