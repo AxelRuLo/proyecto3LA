@@ -6,6 +6,7 @@ subStringEvaluar = []
 
 def recorrerLlaves():
     global llaves
+    llaves = []
     countInicio = 0
     countFinal = 0
 
@@ -45,6 +46,7 @@ def convertString(value):
 
 def subStringConcatenacion():
     global subStringConcatenacion
+    subStringEvaluar = []
     trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
     
     for valor in llaves:
