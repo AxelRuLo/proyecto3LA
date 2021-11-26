@@ -47,4 +47,4 @@ function toDoSomething(){
 
 class potato{
 
-}
+};

@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import font
+import integracion
 from tkinter.constants import BOTTOM, END
 from tkinter import filedialog
 from unicodedata import normalize 
@@ -30,6 +30,7 @@ textExample = tk.Label(window,height=14,textvariable=display_text,width=70,font=
 # functions
 def abrirTxt():
     global data
+    data = 0
     documento = filedialog.askopenfilename(
     initialdir="C:/Users/MainFrame/Desktop/", 
     title="Open Text file", 
@@ -37,13 +38,13 @@ def abrirTxt():
     )
     f = open(documento, "r",encoding="utf-8")
     data = f.readlines()
-    print(data)
 
 def comprobar():
     if(data == 0):
         display_text.set("no hay nada selecionado")
     else:
         display_text.set("analizando")
+        integracion.analizarCodigo(data)
 
 
 

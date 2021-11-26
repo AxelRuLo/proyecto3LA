@@ -1,5 +1,5 @@
 from unicodedata import normalize
-import AutomataEstructura as automata
+import Automata.AutomataEstructura as automata
 
 llaves = []
 subStringEvaluar = []
@@ -148,5 +148,3 @@ def initanAlysis(text_codigo):
         else:
             return codigo
     return resp_llave
-
-print(initanAlysis())
