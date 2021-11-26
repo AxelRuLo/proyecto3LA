@@ -1,3 +1,4 @@
+from os import truncate
 from tkinter.constants import FALSE
 import arrays as array
 import re
@@ -50,6 +51,16 @@ def comprobarDobles(variable):
         valida = False
     return  valida
 
+def comprobarSinAsigancion(variable):
+    erVariable="(let|const|var)([a-zA-Z]+[a-zA-Z0-9_]*)"
+    validator = re.compile(erVariable)
+    match =validator.match(variable)
+    try:
+        valida = match.group()==variable
+    except (TypeError, AttributeError):
+        valida = False
+    return  valida
+
 
 def comprobacionAsignacionesP1(variable):
     variable = variable.replace(" ","").replace("  ","")
@@ -67,6 +78,8 @@ def comprobarAsignaciones(cadena:str):
     try:
         cadenaSplit = cadena.split(" = ")
         if(not comprobacionAsignacionesP1(cadenaSplit[0]) or len(cadena)<1 or cadena.count("=")==0):
+            if(comprobarSinAsigancion(cadena)):
+                return True
             return False
         if(comprobacionAsignaciones(cadenaSplit[1])==True or comprobarObjeto(cadenaSplit[1])==True or comprobarSimples(cadenaSplit[1])==True or comprobarDobles(cadenaSplit[1])==True):
             print("si jalo")

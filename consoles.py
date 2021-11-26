@@ -23,7 +23,7 @@ def comprobacionConsole(variable):
     variable = variable.replace(" ","").replace("  ","")
     print(f'asi llega la variable{variable}')
     comillaDoble = '"'
-    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+%(),-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[a-zA-Z0-9*+()%,-."+comillaDoble+"/:;<=>?@[\]^_`{|}~]*(['])))[,+]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,+]{0,1}|([a-zA-Z]+[0-9_a-zA-Z.])([(][)]){0,1}[,+]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
+    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+%(),~`-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[`a-zA-Z0-9*+()%,-."+comillaDoble+"/:;<=>?@[\]^_`{|}~]*(['])))[,+]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,+]{0,1}|([a-zA-Z]+[0-9_a-zA-Z.])([(][)]){0,1}[,+]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
     erConsole = "(console.assert())|"
     erConsole = erConsole+"(console.count("+erVariableContenido+"))|"
     erConsole = erConsole+"(console.debug("+erVariableContenido+"))|"
