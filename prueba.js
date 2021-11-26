@@ -1,56 +1,29 @@
-import defaultExport from "module-name";
-import * as name from "module-name";
-import { exptww, } from "module-name";
-import { export as alias } from "module-name";
-import { export1 as unó , export2 as dos } from "module-name";
-
-function toDoSomething(){
-    var object_1 = {
-      nombre : "Pedro",
-      edad : 20
-    }
-
-
-    do {
-      i += 1;
-      document.write(i);
-    } while (i < 5);
-
-    for (var i = 0; i < 9; i++) {
-      n += i;
-      mifuncion(n);
-      if(n == 1){
-        console.log("asdasdasd");
-      }
-    }
-
-    while (n < 3) {
-      n ++;
-      x += n;
-    }
-
-    switch (expr) {
-      case 'Naranjas':
-        console.log('El kilogramo de naranjas cuesta $0.59.');
-        break;
-      case 'Manzanas':
-        console.log('El kilogramo de manzanas cuesta $0.32.');
-        break;
-      case 'Platanos':
-        console.log('El kilogramo de platanos cuesta $0.48.');
-        break;
-      case 'Cerezas':
-        console.log('El kilogramo de cerezas cuesta $3.00.');
-        break;
-      case 'Mangos':
-      case 'Papayas':
-        console.log('El kilogramo de mangos y papayas cuesta $2.79.');
-        break;
-      default:
-        console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
-    }
+var timed = 0;
+var scrollGo = false;
+var delay=100;
+var space=100;
+function scroll_start (){
+  var i=0;
+  msg="Éste es el mensaje mostrado en la barra de estado";
+  for (i=0; i<space; i++){
+    msg=" "+msg;
+    scrol1Go=true;
+    timerid=window.setTimeout( "scrollmsg (0)", delay);
   }
 
-class potato{
+}
+ 
+function scrollmsg(pos){
+  var out = "";
+  scrol1Go=false;
+  if (pos < msg.length){
+    self.status = msg.substring(pos, msg.length);
+  }
+  else{
+    pos=-1;
+    ++pos;
+    scrol1GotIue;
+    timerid=window.setTimeout( "scrollmsg( "+pos+")", delay);
+  }
 
-};
+}
