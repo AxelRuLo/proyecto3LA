@@ -9,3 +9,6 @@ while (condition) {
 }
 str = 3
 console.log(3str)
+
+erConsole = "(console.count(variableEr+()))" notacionClase
+erConsole = "(console.count("+erVariableContenido+"))" notacionRe

@@ -81,6 +81,11 @@ def touringGears(cinta:list):
         return False
     return "aceptado"
 
+def touringMachine():
+    cadena  = "- 3 - 1"
+    cadenaTratada = cadena.replace("/"," / ").replace("**", " ** ").replace("+"," + ").replace("*"," * ").replace("  "," ")
+    cadenaSplit = cadenaTratada.split(" ")
+
 def llenarCinta(cintaAux:list):
     cinta = []
     for elemento in cintaAux:
