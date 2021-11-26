@@ -1,5 +1,5 @@
 function Animal (nombre) {
-  
+
 }
 class Perro extends Animal {
   hablar(nombre) {

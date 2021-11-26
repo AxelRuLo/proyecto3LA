@@ -8,6 +8,7 @@ from Automata.AutomaGeneral import initanAlysis
 
 def analizarCodigo(codigo):
     listaImports = []
+    listaImports.insert
     codigoCopy = codigo.copy()
     for i in range(len(codigoCopy)):
         if(codigoCopy[i].__contains__("import")):
@@ -32,14 +33,18 @@ def analizarCodigo(codigo):
     if(estado == True):
         print("sin errores pero se puede seguir")
         lenImport = len(listaImports)
-        print(lenImport)
         if(lenImport>0):
             for elemento in listaImports:
                 if(not imports.checarImports(elemento)):
                     return f'checar la linea que contiene: {elemento}'
-        
+        # listaCodigo = ["var2 = ''",*listaCodigo]
         for elemento in listaCodigo:
+            print(elemento)
+            print("asinganaciones",asignaciones.comprobarAsignaciones(elemento))
+            print("consoles",consoles.checarConsoles(elemento))
+            print("operaciones",operaciones.touringMachine(elemento))
             if(asignaciones.comprobarAsignaciones(elemento)==True or consoles.checarConsoles(elemento)==True or operaciones.touringMachine(elemento)):
-                return f"no se encontraron problemas"
+                pass
             else:
                 return f'error en {elemento}'      
+        return f"no se encontraron problemas"
