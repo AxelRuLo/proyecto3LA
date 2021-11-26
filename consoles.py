@@ -2,7 +2,8 @@ import re
 
 
 def comprobacionAsignacionesEspeciales(variable):
-    print(variable)
+    variable = variable.replace(" ","")
+    print(f'asi llega la variable{variable}')
     comillaSimple = "'"
     comillaDoble = '"'
     erNumeros = "|([-]{0,1}[0-9]*[.,][0-9]*)"
@@ -10,7 +11,6 @@ def comprobacionAsignacionesEspeciales(variable):
     erComillasSimples = "|(["+comillaSimple+"]([a-zA-Z0-9!\s#$%&()"+comillaDoble +")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaSimple+"])"
     erComillasDobles  = "|([" +comillaDoble +"]([a-zA-Z0-9!\s#$%&()"+comillaSimple+")*+,-./:;<=>?@[\]^_`{|}~])*["+comillaDoble +"])"
     erEspecial = "([a-zA-Z]([a-zA-Z0-9_.])*[(]("+erVariable+erNumeros+erComillasSimples+erComillasDobles+")[)])|([a-zA-Z][a-zA-Z_0-9]*([-]{2,2}|[+]{2,2}))|([a-zA-Z][a-zA-Z0-9_]*(([+][=])|([-][=]))(([-]{0,1}[a-zA-Z][a-zA-Z0-9_]*)|([-]{0,1}[0-9]+[.,]{0,1}[0-9]*)))"                                                                 
-    print(erEspecial)
     validator = re.compile(erEspecial)
     match =validator.match(variable)
     try:
@@ -21,8 +21,9 @@ def comprobacionAsignacionesEspeciales(variable):
 
 def comprobacionConsole(variable):
     variable = variable.replace(" ","").replace("  ","")
+    print(f'asi llega la variable{variable}')
     comillaDoble = '"'
-    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+%(),-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[a-zA-Z0-9*+()%,-."+comillaDoble+"/:;<=>?@[\]^_`{|}~]*(['])))[,]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,]{0,1}|([a-zA-Z]+[0-9_a-zA-Z])([(][)]){0,1}[,]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
+    erVariableContenido = "[(]((((["+comillaDoble+"])[a-zA-Z0-9*+%(),-.'/:;<=>?@[\]^_`{|}~]*(["+comillaDoble+"]))|((['])[a-zA-Z0-9*+()%,-."+comillaDoble+"/:;<=>?@[\]^_`{|}~]*(['])))[,+]{0,1}|([-]{0,1}[0-9]*[.]{0,1}[0-9])[,+]{0,1}|([a-zA-Z]+[0-9_a-zA-Z])([(][)]){0,1}[,+]{0,1}|((([-]{0,1}[0-9]+[.]{0,1}[0-9]*|[-]{0,1}[a-zA-Z]+[0-9]*[a-zA-Z0-9_]*)[/*%+-]{0,1})+))*[)]"
     erConsole = "(console.assert())|"
     erConsole = erConsole+"(console.count("+erVariableContenido+"))|"
     erConsole = erConsole+"(console.debug("+erVariableContenido+"))|"
@@ -54,7 +55,6 @@ def checarConsoles(cadena:str):
         cadena = cadena[0:tamañoCadena-1]
     resultado = comprobacionConsole(cadena)
     resultado2 = comprobacionAsignacionesEspeciales(cadena)
-    print(resultado,resultado2)
     if(resultado==True or resultado2 == True):
         return True
     return False

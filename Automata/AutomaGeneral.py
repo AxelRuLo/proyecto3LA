@@ -148,5 +148,5 @@ def initanAlysis(text_codigo):
         if(len(list_errores)>0):
             return codigo,list_errores
         else:
-            return codigo
-    return resp_llave
+            return codigo,True
+    return False,False

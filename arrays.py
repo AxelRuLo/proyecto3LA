@@ -29,12 +29,11 @@ def corchetesCount(variable:str):
 def checarArray(cadena:str):
     try:
         cadena = cadena.strip()
-        print("entro a array")
+
         tamañoCadena = len(cadena)
         if(cadena[tamañoCadena-1]==";"):
             cadena = cadena[0:tamañoCadena-1]
         cadena2 = cadena.replace("'","@@").replace('"',"'").replace("@@",'"')
-        print(cadena2)
         if(cadena.count("=")!=1):
             print("demasiados = no es una asignacion")
             return False

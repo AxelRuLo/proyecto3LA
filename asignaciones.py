@@ -4,7 +4,6 @@ import re
 
 
 def comprobacionAsignaciones(variable):
-    print(variable)
     comillaSimple = "'"
     comillaDoble = '"'
     erNumeros = "([-]{0,1}[0-9]*[.,][0-9]*)"
@@ -35,7 +34,6 @@ def comprobacionAsignacionesP1(variable):
 def comprobarAsignaciones(cadena:str):
     cadena = cadena.replace(";","")
     try:
-        print(cadena)
         cadenaSplit = cadena.split(" = ")
         if(not comprobacionAsignacionesP1(cadenaSplit[0]) or len(cadena)<1 or cadena.count("=")==0):
             return False
@@ -51,6 +49,6 @@ def comprobarAsignaciones(cadena:str):
 
 
         
-print(comprobarAsignaciones("miFunction(n)"))
+
 
     

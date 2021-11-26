@@ -1,50 +1,38 @@
-function toDoSomething(){
-    var object_1 = {
-      nombre : "Pedro",
-      edad : 20
+
+var intval = ""
+
+function start_Int() {
+    if (intval == 2) {
+        intval = window.setInterval("start_clock()", 1000);
     }
-
-
-    do {
-      i += 1;
-      document.write(i);
-    } while (i < 5);
-
-    for (var i = 0; i < 9; i++) {
-      n += i;
-      mifuncion(n);
-      if(n == 1){
-        console.log("asdasdasd");
-      }
+    else {
+        stop_Int();
     }
+}
 
-    while (n < 3) {
-      n ++;
-      x += n;
+function stop_Int() {
+    if (intval != 2) {
+        window.clearInterval(intval);
+        intval = "";
+        document.formu.tiempo.value = "Tiempo detenido";
     }
+}
 
-    switch (expr) {
-      case 'Naranjas':
-        console.log('El kilogramo de naranjas cuesta $0.59.');
-        break;
-      case 'Manzanas':
-        console.log('El kilogramo de manzanas cuesta $0.32.');
-        break;
-      case 'Platanos':
-        console.log('El kilogramo de platanos cuesta $0.48.');
-        break;
-      case 'Cerezas':
-        console.log('El kilogramo de cerezas cuesta $3.00.');
-        break;
-      case 'Mangos':
-      case 'Papayas':
-        console.log('El kilogramo de mangos y papayas cuesta $2.79.');
-        break;
-      default:
-        console.log('Lo lamentamos, por el momento no disponemos de ' + expr + '.');
+function start_clock() {
+    var d = new Date(); 
+    var sw = "am";
+    var h = d.getHours(); 
+    var m = d.getMinutes() + "";
+    var s = d.getSeconds() + "";
+    if (h > 12) {
+        h -= 12;
+        sw = "pm";
     }
-  }
-
-class potato{
-
-};
+    if (mlength == 1) {
+        m = "0" + m;
+    }
+    if (slength == 1) {
+        s = "0" + s;
+    }
+    document.formu.tiempo.value = h + ":" + m + ":" + s + " " + sw;
+}

@@ -44,7 +44,7 @@ def comprobar():
         display_text.set("no hay nada selecionado")
     else:
         display_text.set("analizando")
-        integracion.analizarCodigo(data)
+        display_text.set(integracion.analizarCodigo(data))
 
 
 
